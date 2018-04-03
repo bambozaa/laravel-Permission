@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Role;
+use App\Permission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','permission_clearance']);
     }
     /**
      * Display a listing of the resource.
@@ -72,7 +73,7 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
         $role = Role::findOrFail($id);
         $permissions = Permission::all();
